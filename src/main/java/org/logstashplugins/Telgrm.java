@@ -1,5 +1,7 @@
 package org.logstashplugins;
 
+
+// FIXME LOMBOK 사용해보기
 public class TelgrmInfo {
 
     private String field;
