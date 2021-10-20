@@ -51,9 +51,12 @@ dependencies {
     implementation fileTree(dir: LOGSTASH_CORE_PATH, include: "build/libs/logstash-core-?.??.?.jar")
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.26'
 
+    compile group:'org.xerial', name:'sqlite-jdbc', version:'3.8.11.2'
+
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.jruby:jruby-complete:9.2.7.0'
 }
+
 
 clean {
     delete "${projectDir}/Gemfile"

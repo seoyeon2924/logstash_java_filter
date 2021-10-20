@@ -17,19 +17,19 @@ public class TelgrmParsingFilterTgwTest {
 
     @Test
     public void testJavaExampleFilter() {
-        String sourceField = "foo";
+        String sourceField = "A400";
         Configuration config = new ConfigurationImpl(Collections.singletonMap("source", sourceField));
         Context context = new ContextImpl(null, null);
         TelgrmParsingFilterTgw filter = new TelgrmParsingFilterTgw("test-id", config, context);
 
         Event e = new org.logstash.Event();
         TestMatchListener matchListener = new TestMatchListener();
-        e.setField(sourceField, "abcdef");
+        Object f = "10:52:40:60 R __ __ 000000 0827000002 A400 A4004810202100271052090027000002ON0556    31441601001A              K20091757       2208160348202108271052092172010000038088=0000                                                                                                                                                                                                                                                                                                                                                                                                 1140N0000063150080000063150           안녕하세요                  abcdabcde01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de113bcde01002de01002de01002de01002defge01002defg            ";
+
+        e.setField(sourceField, f);
         Collection<Event> results = filter.filter(Collections.singletonList(e), matchListener);
 
-        Assert.assertEquals(1, results.size());
-        Assert.assertEquals("fedcba", e.getField(sourceField));
-        Assert.assertEquals(1, matchListener.getMatchCount());
+        System.out.println(e);
     }
 
 }
