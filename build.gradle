@@ -69,7 +69,7 @@ clean {
 }
 
 tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+    options.encoding = 'utf-8'
 }
 
 tasks.register("vendor"){

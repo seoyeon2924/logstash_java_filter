@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -72,11 +73,10 @@ public class TelgrmParsingFilterTgw implements Filter {
                 while (it.hasNext()) {
                     Telgrm Telgrm = it.next();
 
-                    //System.out.println("Telgrm: " + Telgrm);
-
                     int begin = nextIndex;
                     if (nextIndex >= telgrmLength) {
                         break;
+
                     }
                     int end = nextIndex + Telgrm.getFieldSize();
                     if (end >= telgrmLength) {
@@ -96,13 +96,13 @@ public class TelgrmParsingFilterTgw implements Filter {
 
                     // fixme 여기서 부터 코드가 아파 ... 반복 처리 필요한 전문인지
                     if (Telgrm.getChan_con_yn() != null && Telgrm.getChan_con_yn()
-                            .equals("Y")) { // sub이 존재
+                            .equals("Y")) { // sub 존재여부 확인
 
                         begin = nextIndex;
 
                         //몇번 반복을 돌려야 하는지 찾기
                         int grid_cnt = Integer.parseInt(nextField);
-                        Map<String, Integer> subTelgrm = new HashMap<>();
+                        Map<String, Integer> subTelgrm = new LinkedHashMap<>();
 
                         // 반복을 돌릴 Map 생성
                         while (true) {
@@ -116,7 +116,7 @@ public class TelgrmParsingFilterTgw implements Filter {
                                 subTelgrm.put(Telgrm.getField(), Telgrm.getFieldSize());
                             }
                         }
-                        it.previous(); // 반복문 빠져나간 다음을 위해 ,
+                        it.previous(); // sub 빠져나간 다음을 위해
 
                         // map 생성 후 grid_cnt 만큼 반복하기
                         int name = 1;
@@ -133,6 +133,7 @@ public class TelgrmParsingFilterTgw implements Filter {
                                 }
                                 begin += entry.getValue();
                                 e.setField("SUB_" + entry.getKey() + "_" + name, nextField);
+
                             }
                             grid_cnt--;
                             name++;

@@ -17,19 +17,17 @@ public class TelgrmParsingFilterTgwTest {
 
     @Test
     public void testJavaExampleFilter() {
-        String sourceField = "A400";
+        String sourceField = "message";
         Configuration config = new ConfigurationImpl(Collections.singletonMap("source", sourceField));
         Context context = new ContextImpl(null, null);
         TelgrmParsingFilterTgw filter = new TelgrmParsingFilterTgw("test-id", config, context);
 
         Event e = new org.logstash.Event();
         TestMatchListener matchListener = new TestMatchListener();
-        Object f = "10:52:40:60 R __ __ 000000 0827000002 A400 A4004810202100271052090027000002ON0556    31441601001A              K20091757       2208160348202108271052092172010000038088=0000                                                                                                                                                                                                                                                                                                                                                                                                 1140N0000063150080000063150           안녕하세요                  abcdabcde01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de01002de113bcde01002de01002de01002de01002defge01002defg            ";
+        Object f = "16:03:25:98 S 00 00 000000 2739400000 W061 W0617065202005072030522739400000ON06240000        001  334586121                                                                                                                         N                0000000004                                                                                       002O11캐쉬백선정산        000000001000000001000000000110T11T선정산             000000000000000000000000000000000004O34이벤트포인트        0000001000O33복지포인트          0000000000O39신규복지포인트      0000467700O36OCB PP포인트        0000000000000000                                                                                                                          \n";
 
         e.setField(sourceField, f);
         Collection<Event> results = filter.filter(Collections.singletonList(e), matchListener);
-
-        System.out.println(e);
     }
 
 }
