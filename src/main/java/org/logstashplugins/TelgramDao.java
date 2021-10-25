@@ -71,6 +71,7 @@ public class TelgramDao {
             Class.forName("org.sqlite.JDBC");
 
             String dbFile = "/Users/seoyeon/Desktop/telgrm.db";
+           // String dbFile = "/app/logstash/sqlite/telgrm.db";
 
             return DriverManager
                     .getConnection("jdbc:sqlite:" + dbFile);
